@@ -1,0 +1,16 @@
+<p
+  id="status-text"
+  class="subtitle is-6 my-2 {{if @isArchived "has-text-dark" "has-text-success"}}">
+  Status: {{if @isArchived "Archived" "Active"}}
+</p>
+
+
+{{#unless @isArchived}}
+  <button
+    id="archive-button"
+    class="button is-small is-dark is-rounded"
+    type="button"
+    {{on "click" this.onArchive}}>
+    Archive
+  </button>
+{{/unless}}
