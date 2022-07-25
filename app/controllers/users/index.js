@@ -9,7 +9,6 @@ export default class UsersController extends Controller {
   @action
   toggleUsers() {
     const transitionTo = (queryParams) => this.target.transitionTo('users', queryParams);
-
     if (this.archived) {
       transitionTo({ queryParams: { archived: undefined } });
     } else {
