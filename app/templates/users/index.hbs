@@ -1,14 +1,15 @@
 {{page-title 'User'}}
 <div class="container">
 
-  <label class="checkbox mt-5 has-text-primary">
-    <input
-      id="toggle-users"
-      type="checkbox"
-      checked={{not this.archived}}
-      {{on "click" this.toggleUsers}}/>
+  <label for="toggle-users" class="checkbox mt-5 has-text-primary">
     Show archived users
   </label>
+
+  <input
+    id="toggle-users"
+    type="checkbox"
+    checked={{not this.archived}}
+    {{on "click" this.toggleUsers}}/>
 
   <div class="columns is-centered">
 
