@@ -8,10 +8,17 @@ module.exports = function (app) {
     catches the Update request on a user
     PATCH "localhost:4200/api/users/1"
   */
-  usersRouter.patch('/:id', function (request) {
+  usersRouter.patch('/:id', function(request, res) {
     // Update data from the UI
     const requestBody = request.body;
-    // res.send();
+
+    const user = usersJson.data.find((user) => {
+      return user.id === request.params.id;
+    });
+
+    user.attributes.archived = requestBody.data.attributes.archived;
+
+    res.send({ data: user });
   });
 
   /*
@@ -30,8 +37,15 @@ module.exports = function (app) {
     catches the index request on users
     GET "localhost:4200/api/users"
   */
-  usersRouter.get('/', function (req, res) {
-    res.send(usersJson);
+  usersRouter.get('/', function(req, res) {
+    if (req.query.filter && 'archived' in req.query.filter) {
+      const activeUsers = usersJson.data.filter((user) => {
+        return user.attributes.archived === 'false';
+      });
+      res.send({ data: activeUsers });
+    } else {
+      res.send(usersJson);
+    }
   });
 
   app.use('/api/users', require('body-parser').json({ type: 'application/*+json' }), usersRouter);
@@ -46,7 +60,8 @@ const usersJson = {
     "attributes": {
       "name": "Albert Einstein",
       "image": "/images/Einstein.jpg",
-      "value": "false"
+      "value": "false",
+      "archived": "false",
     }
   },
   {
@@ -55,7 +70,8 @@ const usersJson = {
     "attributes": {
       "name": "Walt Disney",
       "image": "/images/Walt.jpg",
-      "value": "false"
+      "value": "false",
+      "archived": "false",
     }
   },
   {
@@ -64,7 +80,8 @@ const usersJson = {
     "attributes": {
       "name": "Bruce Lee",
       "image": "/images/Bruce.jpg",
-      "value": "false"
+      "value": "false",
+      "archived": "false",
     }
   },
   {
@@ -73,7 +90,8 @@ const usersJson = {
     "attributes": {
       "name": "Neil Armstrong",
       "image": "/images/Neil.jpg",
-      "value": "false"
+      "value": "false",
+      "archived": "true",
     }
   }
   ]

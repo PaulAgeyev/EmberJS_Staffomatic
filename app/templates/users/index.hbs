@@ -1,11 +1,24 @@
 {{page-title 'User'}}
 <div class="container">
+
+  <label for="toggle-users" class="checkbox mt-5 has-text-primary">
+    Show archived users
+  </label>
+
+  <input
+    data-test-id="toggle-users"
+    type="checkbox"
+    checked={{not this.archived}}
+    {{on "click" this.toggleUsers}}/>
+
   <div class="columns is-centered">
 
-    {{#each @model as |user|}}
+    {{#each @model as |user index|}}
       <div class="column">
-
-        <LinkTo @route="users.user" @model={{user}}>
+        <LinkTo
+          @route="users.user"
+          @model={{user}}
+          data-test-id="{{if user.archived "archived" "active"}}-user">
           <div class="user-select is-220px">
             <img
               class="is-pulled-left"
@@ -13,7 +26,9 @@
               width="60px"
               alt="profile-image"
             />
-            <p>{{user.name}}</p>
+            <p>
+              {{user.name}}
+            </p>
           </div>
         </LinkTo>
 

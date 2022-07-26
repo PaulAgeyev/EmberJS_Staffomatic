@@ -1,0 +1,13 @@
+<p
+  data-test-id="status-text"
+  class="subtitle is-6 my-2 {{if @model.archived "has-text-dark" "has-text-success"}}">
+  Status: {{if @model.archived "Archived" "Active"}}
+</p>
+
+<button
+  data-test-id="toggle-button"
+  class="button is-small is-dark is-rounded"
+  type="button"
+  {{on "click" (fn this.onArchive @model)}}>
+  {{if @model.archived "Unarchive" "Archive"}}
+</button>
