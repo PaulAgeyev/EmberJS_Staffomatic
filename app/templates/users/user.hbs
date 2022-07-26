@@ -3,7 +3,7 @@
   <div class="column is-3 is-offset-4">
 
     <LinkTo @route="users">
-      <button id="go-to-back" class="button mb-2" type="button">
+      <button data-test-id="go-to-back" class="button mb-2" type="button">
         Back to users
       </button>
     </LinkTo>
@@ -14,7 +14,7 @@
         <img src={{@model.image}} width="256px" alt="User" />
       </figure>
 
-      <p class="title has-text-white my-2">
+      <p class="title has-text-white my-2" data-test-id="title">
         {{@model.name}}
       </p>
 
@@ -24,8 +24,7 @@
       </p>
 
       <ArchivedStatus
-        @isArchived={{@model.archived}}
-        @onArchive={{this.onArchive}}
+        @model={{model}}
       />
 
     </div>

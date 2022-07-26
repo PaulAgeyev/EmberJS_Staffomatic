@@ -1,12 +1,13 @@
-import { action } from '@ember/object';
+import {action} from '@ember/object';
+import {tracked} from '@glimmer/tracking';
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 
 export default class ArchivedStatusComponent extends Component {
-  @tracked _onArchive = this.args.onArchive;
+  @tracked model = this.args.model;
 
   @action
-  onArchive() {
-    this._onArchive();
+  onArchive(model) {
+    this.model.set('archived', !model.archived);
+    this.model.save();
   }
 }
